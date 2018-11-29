@@ -1,0 +1,310 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "PEEPSHOW" "1" "Nov 19, 2018" "" "peepshow"
+.SH NAME
+peepshow \- Data Explorer for Python
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.sp
+\fIpeepshow\fP package consists of two utilities, \fIpeep\fP and \fIshow\fP dedicated to Python developers.
+.SH PEEP
+.sp
+\fBpeep\fP function provides an interactive interface to access properties of the target object given as an argument. When called without arguments, \fBpeep\fP starts from inspecting a dictionary that consists of all the variables in scope of the caller. There is also \fBpeep_\fP function which expects an expression instead of variable to be provided as an argument. Such expression is evaluated in context of the caller and the result becomes a target object.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+>>> x = [1, 2, 3]  # target object
+>>> peep(x)        # target provided explicitly
+>>> peep()         # all the variables in this context a assembly to a target
+>>> peep_(\(aqx\(aq)     # target provided as an expression
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Navigating
+.sp
+After invoking \fBpeep\fP an interactive prompt appears on the screen. User can call one of the commands using either its full name or and alias. Alias consists only of capital letters form the full name. Use \fIHelp\fP command to get full list of commands or invoke \fIhelp <COMMAND>\fP to get help on specific command <COMMAND>.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> help        # provides list of commands
+> h           # the same as above
+> help manual # provides help on \(aqmanual\(aq command
+> h man       # the same as above
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+It is also possible to execute suggested command that is displayed in the prompt simply by hitting Enter key.
+.sp
+Prompt also provides type name of the target. This applies only to selected Python built\-in types.
+.SS Basic Inspection
+.sp
+Regardless of the target type, command \fIInfo\fP (executed at startup) can be used for displaying basic summary. More detailed information are provided by \fIFeatures\fP command.
+.sp
+\fIPrettyPrint\fP command attempts to show target recursively in a recursive manner.
+.sp
+Commans \fI?\fP and \fI??\fP display target\(aqs docstring and source code respectively.
+.sp
+Whenever there is too much information on the screen, \fICLear\fP command can be used.
+.sp
+Typically there is a need of inspecting of target\(aqs attributes. This can be done by using \fIDir\fP command. Optionally one can enter an integer number to select corresponding attribute. Such attribute becomes a new target. Beside \fIDir\fP, there are also \fIDirAll\fP and \fIDirPublic\fP that help to specify if private or built\-in attributes should be considered. Note that peepshow distinguish between public/private/built\-in attributes by looking at the underscores in the name.
+.sp
+While \fIDir\fP commands inspect by using \fBdir()\fP function, there are also \fIVars\fP and \fIVarsPublic\fP commands that use \fBvars()\fP function instead.
+.sp
+\fI\&.<ATTRIB>\fP is a command that can be used to access attributes without listing them.
+.sp
+Commands \fIBases\fP, \fIMro\fP, \fISelf\fP, \fIType\fP can be invoked to understand relations between the type of the target and other types. For more details use \fIhelp\fP\&.
+.sp
+Example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> t           # take type of the target
+> .__name__   # take name of the type above
+> d           # list attributes of the string above
+> 5           # select 5\-th attribute
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS History
+.sp
+Peepshow keeps track of the targets that are examined. One can display history and traverse through it by using following commands:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> .    # display history
+> ..   # go one step backward
+> \-    # go one step forward
+> /    # go to the very beginning
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Expressions
+.sp
+For clarity, in the title bar target is described in a functional language that is not necessarily a valid Python expression. This language extends Python by:
+.INDENT 0.0
+.IP \(bu 2
+\fB\->\fP to denote passing target to a function. E.g. \fBx \-> func\fP corresponds to \fBfunc(x)\fP in pure Python.
+.IP \(bu 2
+\fB=>\fP to denote passing target to an expression. E.g. \fBx => _ + 5\fP corresponds to \fB(lambda _: _ + 5)(x)\fP in pure Python.
+.IP \(bu 2
+\fB<>\fP to denote taking n\-th element of iterable. E.g. \fBrange(30, 40)<5>\fP could be replaced by \fB[*range(30, 40)][5]\fP in pure Python.
+.IP \(bu 2
+\fB<*>\fP to denote all the variables in context of the caller. Note that peepshow have access to locals, globals and built\-ins, but not to enclosed variables.
+.UNINDENT
+.sp
+\fIeXpression\fP prints a valid Python expression which evaluates to the target. The same expression can be passed to underlying IPython by \fIExport\fP command.
+.sp
+It is possible to evaluate an expression and consider result to be a new target. For instance:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> $range(100)  # take generator object as a new target
+> $list(_)     # converts target to a list and takes it as a new target
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Following predefined symbols are available:
+.INDENT 0.0
+.IP \(bu 2
+\fB_\fP \- current target
+.IP \(bu 2
+\fBnth\fP \- function that returns n\-th element from an iterable
+.IP \(bu 2
+\fBcatch\fP \- wrapper that returns exception raised by wrapped function. For instance:
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> catch(divmod)(1, 0)  # returns ZeroDivisionError
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Next to \fI$\fP (dollar) there is also \fI!\fP (exclamation mark) which evaluates expression and prints the result without replacing current target. For example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> !import re                      # import \(aqre\(aq module
+> !m = re.match(\(aq\ed*\(aq, \(aq123abc\(aq)  # assign \(aqm\(aq
+> $m.group()                      # execute \(aqgroup\(aq method and take result as a target
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Iterables
+.sp
+Elements of iterables can be listed by \fI*\fP (asterisk). Optional offset can be provided to skip given number of initial elements. Items from cache (last items visible on the screen) can be selected from by providing an integer numner. Cache can be recalled any time by \fIShowCache\fP\&. Example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> $range(1000)
+> *100          # show items starting from 100\-th
+> 105           # pick 105\-th item
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+It is important to know that generator objects are drained by listing their elements. In many cases this can influence execution of underlying application.
+.sp
+In case of dictionaries, only keys are iterated by invoking \fI*\fP\&. Alternatively \fI**\fP can be used to display keys and corresponding values. Optional offset can be specified.
+.SS Subscribables
+.sp
+Target can be subscribed by using square brackets. Slicing an other expressions are allowed. Examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> $[1, 22, 333]
+> ..
+> [2]     # select 333
+> ..
+> [1:]    # select [22, 333]
+> ..
+> [_[0]]  # select [22]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Callables
+.sp
+Targets can be called by using round brackets. All kinds of Python\-compatible expressions are allowed inside. Examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> !x = (123,)
+> $str
+> ()                # empty string
+> ..
+> (*x)              # \(aq123\(aq
+> ..
+> (b\(aqabc\(aq, \(aqutf8\(aq)  # \(aqabc\(aq
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Command \fIPass\fP can be used for passing target to a function and executing this function:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+> $"abcdef"
+> pass len  # equivalent of $len(_)
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Exiting
+.sp
+Use \fIQuit\fP or CTRL+C to quit peepshow and terminate underlying application. Use \fIContinue\fP or CTRL+D to return to underlying application. Additionally \fIExport\fP command continues underlying IPython session and provides it with an expression that evaluates to current target.
+.SH SHOW
+.sp
+\fBshow\fP is a function that displays variables given as arguments. Names of the variables that are provided as positional arguments are determined based on Python reflection.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+>>> x = 123
+>>> y = [1, 2, 3]
+>>> show(x, y, x*2+1)
+x = 123
+y = [1, 2, 3]
+x * 2 + 1 = 247
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Variables that are provided as keyword arguments inherit names from corresponding arguments.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+>>> x = 123
+>>> y = 234
+>>> show(foo=x+y)
+foo = 357
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+There is also \fBshow_\fP function that expects their arguments to be expressions that should be evaluated in context of the caller.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+>>> x = 123
+>>> y = 234
+>>> show_(\(aqx+y\(aq, py_ver=\(aqsys.version.split()[0]\(aq)
+x + y = 357
+py_ver = \(aq3.6.2\(aq
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+\fBshow\fP and \fBshow_\fP functions can be also called without arguments to display all the variables in context of the caller.
+.SH AUTHOR
+Grzegorz Krasoń
+.SH COPYRIGHT
+2018, Grzegorz Krasoń
+.\" Generated by docutils manpage writer.
+.
