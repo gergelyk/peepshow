@@ -19,7 +19,10 @@ class PagedCache:
 
     def __iter__(self):
         while True:
-            obj = next(self.iterator)
+            try:
+                obj = next(self.iterator)
+            except StopIteration:
+                break
             line = self.str_func(obj)
             self.cache.append(obj)
             yield f'[{self.index:>5}] {line}'
