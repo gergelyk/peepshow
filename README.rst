@@ -6,7 +6,6 @@ Provides following utilities for debugging Python applications:
 * show - lightweight function that prints name and value of your variable(s) to the console.
 * peep - featured, interactive interface for data inspection.
 
-
 Installation
 ------------
 
@@ -16,6 +15,7 @@ Install ``peepshow`` package:
 
     pip install peepshow
 
+PeepShow uses ``clear``, ``vim``, ``man`` commands which are available in most of Linux distributions. Users of other operating systems need to install them on their own.
 
 Built-Ins
 ^^^^^^^^^
@@ -47,6 +47,14 @@ It is also possible to invoke ``peep()`` as a result of calling built-in functio
 .. code-block:: bash
 
     export PYTHONBREAKPOINT=peepshow.peep
+
+Compatibility
+-------------
+
+* This software is expected to work with Python 3.6, 3.7 and compatible.
+* It has never been tested under operating systems other than Linux.
+* It works fine when started in a plain Python script, in ipython or ptipython
+* In these environments like interactive python console, in pdb and ipdb, peep and show cannot infer names of the variables in the user context, so they need to be provided explicitely (e.g. use `peep_`` and ``show_``).
 
 Usage
 -----
