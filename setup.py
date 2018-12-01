@@ -32,18 +32,21 @@ class CustomInstallCommand(install):
         install.initialize_options(self)
         self.add_builtins = 0
 
-
-    def run(self):
+    def do_add_builtins(self):
         if self.user:
             customize_path = Path(site.getusersitepackages()) / 'usercustomize.py'
         else:
             customize_path = Path(site.getsitepackages()[0]) / 'sitecustomize.py'
-        
+
         with open(customize_path, 'a') as fh:
             fh.write(customize_code)
-            
+
         print('PeepShow utils added to builtins through: ', customize_path)
+
+    def run(self):
         super().run()
+        if self.add_builtins:
+            self.do_add_builtins()
 
 readme_path = Path(__file__).parent / 'README.rst'
 

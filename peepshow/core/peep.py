@@ -1,4 +1,5 @@
 import shlex
+import sys
 from peepshow.cmds.cmds import Commands, CommandError
 from peepshow.utils import terminal
 from peepshow.utils.terminal import print_error, print_help, style, Fore
@@ -109,7 +110,12 @@ def stop(try_exit):
 
     cancel_stop = False
     if try_exit:
-        if test_exit():
+        if sys.gettrace():
+            print_error('Underlying debugger cannot be terminated.')
+            # in fact it can be, but in case of pdb/ipdb it results in an ugly exception
+            print_help("You can use 'Continue' command to close peepshow.")
+            cancel_stop = True
+        elif test_exit():
             clean_up()
             exit(0)
         else:

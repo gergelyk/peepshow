@@ -15,10 +15,7 @@ def peep(*args):
     env = utils.caller_gloloc()
 
     if args:
-        try:
-            expr = utils.arg_names()[0]
-        except:
-            expr = '?'
+        expr = utils.arg_names()[0]
         target = Given(args[0], expr)
     else:
         target = GloLoc(env.initial)
