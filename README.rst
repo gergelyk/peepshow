@@ -1,7 +1,7 @@
 PeepShow
 ========
 
-PeepShow is a package of utilities for debugging Python applications:
+Provides following utilities for debugging Python applications:
 
 * show - lightweight function that prints name and value of your variable(s) to the console.
 * peep - featured, interactive interface for data inspection.
@@ -10,7 +10,7 @@ PeepShow is a package of utilities for debugging Python applications:
 Installation
 ------------
 
-Install `peepshow` package:
+Install ``peepshow`` package:
 
 .. code-block:: bash
 
@@ -20,7 +20,7 @@ Install `peepshow` package:
 Built-Ins
 ^^^^^^^^^
 
-If you expect to use peepshow often, consider adding 'peep' and 'show' commands to Python's built-ins. Edit either `{site-packages}/sitecustomize.py` or `{user-site-packages}/usercustomize.py` and append the following:
+If you expect to use peepshow often, consider adding ``peep`` and ``show`` commands to Python's built-ins. Edit either ``{site-packages}/sitecustomize.py`` or ``{user-site-packages}/usercustomize.py`` and append the following:
 
 .. code-block:: python
 
@@ -31,18 +31,18 @@ If you expect to use peepshow often, consider adding 'peep' and 'show' commands 
     builtins.peep_ = peepshow.peep_
     builtins.show_ = peepshow.show_
 
-Alternatively let the installer do it for you by installing package like:
+Alternatively let the installer do it for you by installing package like this:
 
 .. code-block:: bash
 
 	pip install peepshow --install-option="--add-builtins"
 
-Note that `pip uninstall peepshow` command will not undo this change. You need to do it manually.
+Note that ``pip uninstall peepshow`` command will not undo this change. You need to do it manually.
 
 Breakpoint
 ^^^^^^^^^^
 
-It is also possible to invoke `peep()` as a result of calling built-in function `breakpoint()`. To enable such behaviour use `PYTHONBREAKPOINT` system variable:
+It is also possible to invoke ``peep()`` as a result of calling built-in function ``breakpoint()``. To enable such behaviour use ``PYTHONBREAKPOINT`` system variable:
 
 .. code-block:: bash
 
@@ -62,10 +62,10 @@ Running this script:
     y = {'name': 'John', 'age': 123}
     z = "Hello World!"
 
-    # show all variables in scope
+    # show all the variables in the scope
     show()
 
-    # or only selected variables
+    # or only variables of your choice
     show(x, y)
 
     # you can also rename them
@@ -104,10 +104,10 @@ Try to run the following script:
     y = {'name': 'John', 'age': 123}
     z = "Hello World!"
 
-    # peep dictionary that consists of all variables in scope
+    # inspect dictionary that consists of all the variables in the scope
     peep()
 
-    # or only selected variable
+    # or inspect variable of your choice directly
     peep(x)
 
     # use 'peep_' to specify variable name as a string
@@ -117,17 +117,18 @@ Try to run the following script:
 When interactive interface pops up:
 
 * hit ENTER to see list of available variables
-* type '10' and hit ENTER to select 'y'
+* type ``10`` and hit ENTER to select ``y``
 * hit ENTER again to see items of your dictionary
-* type 'dir' and hit ENTER to list attributes of 'y' (excluding built-ins)
-* type 'continue' and hit ENTER to proceed or type 'quit' and hit ENTER to terminate your script
+* type ``dir`` and hit ENTER to list attributes of ``y`` (excluding built-ins)
+* type ``continue`` and hit ENTER to proceed or type ``quit`` and hit ENTER to terminate your script
 
-Note that all the commands have their short aliases. E.g. 'quit' and 'q' is the same.
+Note that all the commands have their short aliases. E.g. ``quit`` and ``q`` is the same.
 
 For more help:
 
-* type 'help' and hit ENTER to see list of available commands
-* type 'man' and hit ENTER to read the manual, hit 'q' when you are done
+* type ``help`` and hit ENTER to see list of available commands
+* type ``man`` and hit ENTER to read the manual, hit ``q`` when you are done
+
 
 Development
 -----------
