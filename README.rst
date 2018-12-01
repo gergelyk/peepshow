@@ -6,6 +6,8 @@ Provides following utilities for debugging Python applications:
 * show - lightweight function that prints name and value of your variable(s) to the console.
 * peep - featured, interactive interface for data inspection.
 
+.. image:: https://user-images.githubusercontent.com/11185582/49333660-171cee80-f5c3-11e8-9b57-0fb9a22054df.gif
+
 Installation
 ------------
 
