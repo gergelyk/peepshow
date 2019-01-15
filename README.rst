@@ -33,11 +33,11 @@ If you expect to use peepshow often, consider adding ``peep`` and ``show`` comma
     builtins.peep_ = peepshow.peep_
     builtins.show_ = peepshow.show_
 
-Alternatively let the installer do it for you by installing package like this:
+Alternatively let the installer do it for you:
 
 .. code-block:: bash
 
-	pip install peepshow --install-option="--add-builtins"
+        pip install peepshow --upgrade --force-reinstall --no-deps --install-option="--add-builtins"
 
 Note that ``pip uninstall peepshow`` command will not undo this change. You need to do it manually.
 
