@@ -55,7 +55,7 @@ with open(readme_path) as fh:
 
 setup(
     name = 'peepshow',
-    version = '0.1.2',
+    version = '0.1.3',
     url = 'https://github.com/gergelyk/peepshow',
     author = 'Grzegorz Krason',
     author_email = 'grzegorz@krason.me',
@@ -63,7 +63,7 @@ setup(
     packages = find_packages(),
     keywords = 'debug data explore programming'.split(),
     long_description = long_description,
-    python_requires = '>=3.6,<=3.7',
+    python_requires = '>=3.6,<3.8',
     package_data = {'': ['peepshow.1']},
     cmdclass = {
         'install': CustomInstallCommand,
