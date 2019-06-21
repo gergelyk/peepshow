@@ -14,7 +14,7 @@ click==7.0                # via pip-tools
 docutils==0.14            # via sphinx
 idna==2.7                 # via requests
 imagesize==1.1.0          # via sphinx
-jinja2==2.10              # via sphinx
+jinja2==2.10.1            # via sphinx
 markupsafe==1.1.0         # via jinja2
 more-itertools==4.3.0     # via pytest
 packaging==18.0           # via sphinx
