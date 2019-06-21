@@ -55,7 +55,7 @@ with open(readme_path) as fh:
 
 setup(
     name = 'peepshow',
-    version = '0.1.3',
+    version = '0.1.4',
     url = 'https://github.com/gergelyk/peepshow',
     author = 'Grzegorz Krason',
     author_email = 'grzegorz@krason.me',
