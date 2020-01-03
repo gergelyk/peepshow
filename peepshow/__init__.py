@@ -1,6 +1,6 @@
 import sys
 
-supported_versions = ('3.6', '3.7')
+supported_versions = ('3.6', '3.7', '3.8')
 python_version = '.'.join(map(str, sys.version_info[:2]))
 if python_version not in supported_versions:
     raise RuntimeError('python version ' + python_version + ' is not supported')
