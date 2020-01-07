@@ -71,11 +71,7 @@ def peep_except_hook(exc_type, exc_value, traceback):
 def enable_except_hook(consider_env=False):
     try:
         if consider_env:
-<<<<<<< HEAD
             enable = bool(int(os.getenv('PYTHON_PEEP_EXCEPTIONS', 0)))
-=======
-            enable = bool(int(os.getenv('PYTHON_PEEP_EXCEPTIONS'), 0))
->>>>>>> 2eaf0e5d32a299f62edc44f9fae1a424498d1dd5
         else:
             enable = true
     except (ValueError, TypeError):
