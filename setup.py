@@ -23,7 +23,6 @@ else:
     builtins.show_ = peepshow.show_
     peepshow.enable_except_hook(consider_env=True)
 
-###############################################################################
 """
 
 class CustomInstallCommand(install):
@@ -59,7 +58,11 @@ with open(readme_path) as fh:
 
 setup(
     name = 'peepshow',
+<<<<<<< HEAD
+    version = '0.2.1',
+=======
     version = '0.2.0',
+>>>>>>> 2eaf0e5d32a299f62edc44f9fae1a424498d1dd5
     url = 'https://github.com/gergelyk/peepshow',
     author = 'Grzegorz Krason',
     author_email = 'grzegorz@krason.me',
