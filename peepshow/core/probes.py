@@ -74,7 +74,7 @@ def get_default_action(obj):
             return '*'
         if issubclass(type_, type):
             return 'd'        
-        return '!_'
+        return 'pp'
     if isinstance(obj, FrameSummary):
         return '??'
     if is_iterable(obj):
