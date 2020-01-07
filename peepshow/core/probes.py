@@ -1,6 +1,7 @@
 import inspect
 from collections import OrderedDict
 from peepshow.utils.python import id_to_str, hash_to_str
+from peepshow.utils.traceback import FrameSummary
 
 def is_bound(obj):
     try:
@@ -66,14 +67,16 @@ class Feature:
 def get_default_action(obj):
     type_is_builtin, type_, _ = is_of_builtin_type(obj)
 
-    if type_ == dict:
-        return '**'
-    if type_ in (list, tuple, set, dict, frozenset):
-        return '*'
-    if type_ is type:
-        return 'd'
     if type_is_builtin:
+        if issubclass(type_, dict):
+            return '**'
+        if issubclass(type_, (list, tuple, set, dict, frozenset)):
+            return '*'
+        if issubclass(type_, type):
+            return 'd'        
         return '!_'
+    if isinstance(obj, FrameSummary):
+        return '??'
     if is_iterable(obj):
         return '*'
     if can_be_called_wo_args(obj):

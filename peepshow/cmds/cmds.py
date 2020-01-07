@@ -2,6 +2,7 @@ import re
 import os
 import shutil
 import inspect
+import subprocess
 from pathlib import Path
 from miscutils.insp import isaccess
 import peepshow
@@ -18,6 +19,7 @@ from peepshow.utils import terminal
 from peepshow.pager import pager
 from peepshow.core.exceptions import CommandError
 from peepshow.utils.python import exc_to_str, crayon_expr, pformat
+from peepshow.utils.traceback import FrameSummary
 
 def table_width(table):
     return max(map(len, table)) + 1
@@ -345,11 +347,21 @@ class Commands(CommandsBase):
         """Show source code of the target."""
         try:
             target = self.ctx.target
-            file_name = inspect.getsourcefile(target)
-            _, first_line_no = inspect.getsourcelines(target)
-            first_line_no = max(first_line_no, 1)
-            shell_cmd = f'vim -c "map q :qa<CR>" -c ":set number" -RM +{first_line_no} -c "normal zt" {file_name}'
-            os.system(shell_cmd)
+            if isinstance(target, FrameSummary):
+                file_name = target.file_name
+                first_line_no = target.line_no
+                first_line_no = max(first_line_no, 1)
+                variable_list = '\n'.join(f'{name}={value}' for name, value in target.gloloc.items())
+                cmd = ('vim', '-', '--not-a-term', '-c', ':set syntax=config', '-c', f'vsplit {file_name}', '-c', 'map q :qa<CR>', '-c', 'map <CR> :qa<CR>', '-c', ':set number', '-RM', f'+{first_line_no}', '-c', 'normal zt')
+                p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+                p.stdin.write(variable_list.encode())
+                p.communicate()
+            else:
+                file_name = inspect.getsourcefile(target)
+                _, first_line_no = inspect.getsourcelines(target)
+                first_line_no = max(first_line_no, 1)
+                shell_cmd = f'vim --not-a-term -c "map q :qa<CR>" -c "map <CR> :qa<CR>" -c ":set number" -RM +{first_line_no} -c "normal zt" {file_name}'
+                os.system(shell_cmd)
         except Exception as ex:
             raise CommandError('Cannot find source code.')
 

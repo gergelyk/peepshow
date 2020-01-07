@@ -10,14 +10,18 @@ customize_code = """
 
 try:
     import peepshow
+except:
+    import warnings
+    warnings.warn("peepshow seems to be uninstalled, please manually " \\
+          "remove corresponding entry form " + __file__)
+else:
     import builtins
+    import os
     builtins.peep = peepshow.peep
     builtins.show = peepshow.show
     builtins.peep_ = peepshow.peep_
     builtins.show_ = peepshow.show_
-except:
-    print("peepshow seems to be uninstalled, please manually remove " \\
-          "corresponding entry form " + __file__)
+    peepshow.enable_except_hook(consider_env=True)
 
 ###############################################################################
 """
@@ -55,7 +59,7 @@ with open(readme_path) as fh:
 
 setup(
     name = 'peepshow',
-    version = '0.1.6',
+    version = '0.2.0',
     url = 'https://github.com/gergelyk/peepshow',
     author = 'Grzegorz Krason',
     author_email = 'grzegorz@krason.me',

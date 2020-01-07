@@ -6,6 +6,7 @@ from peepshow.core.probes import is_subscribable, is_iterable, is_callable
 from peepshow.utils.terminal import style, Style, Fore, Back
 from peepshow.core.probes import Text, is_of_builtin_type
 from peepshow.core.exceptions import CommandError
+from peepshow.utils.traceback import FrameSummary
 
 def get_signature(obj):
     try:
@@ -60,6 +61,12 @@ def str_func(mode, item):
         elif is_of_builtin_type(attr)[0]:
             type_name = None
             value = repr(attr).splitlines()[0] # what if multiline
+        elif isinstance(attr, FrameSummary):
+            type_name = None
+            location = style(Fore.LIGHTRED_EX, f'{attr.file_name}:{attr.line_no}')
+            callable_name = style(Fore.LIGHTBLUE_EX, f'[{attr.callable_name}]')
+            code_line = attr.line
+            value = f"{location} {callable_name} {code_line}"
         else:
             try:
                 type_name = type(attr).__name__

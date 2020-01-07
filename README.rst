@@ -22,7 +22,7 @@ PeepShow uses ``clear``, ``vim``, ``man`` commands which are available in most o
 Built-Ins
 ^^^^^^^^^
 
-If you expect to use peepshow often, consider adding ``peep`` and ``show`` commands to Python's built-ins. Edit either ``{site-packages}/sitecustomize.py`` or ``{user-site-packages}/usercustomize.py`` and append the following:
+If you expect to use peepshow often, consider adding ``peep`` and ``show`` commands to Python's built-ins and enabling except hook. Edit either ``{site-packages}/sitecustomize.py`` or ``{user-site-packages}/usercustomize.py`` and append the following:
 
 .. code-block:: python
 
@@ -32,6 +32,7 @@ If you expect to use peepshow often, consider adding ``peep`` and ``show`` comma
     builtins.show = peepshow.show
     builtins.peep_ = peepshow.peep_
     builtins.show_ = peepshow.show_
+    peepshow.enable_except_hook(consider_env=True)
 
 Alternatively let the installer do it for you:
 
@@ -53,7 +54,7 @@ It is also possible to invoke ``peep()`` as a result of calling built-in functio
 Compatibility
 -------------
 
-* This software is expected to work with Python 3.6, 3.7 and compatible.
+* This software is expected to work with Python 3.6, 3.7, 3.8 and compatible.
 * It has never been tested under operating systems other than Linux.
 * It works fine when started in a plain Python script, in ipython or ptipython
 * In these environments like interactive python console, in pdb and ipdb, peep and show cannot infer names of the variables in the user context, so they need to be provided explicitely (e.g. use `peep_`` and ``show_``).
@@ -106,7 +107,7 @@ will result in following output:
 peep
 ^^^^
 
-Try to run the following script:
+Try running the following script:
 
 .. code-block:: python
 
@@ -139,6 +140,10 @@ For more help:
 * type ``help`` and hit ENTER to see list of available commands
 * type ``man`` and hit ENTER to read the manual, hit ``q`` when you are done
 
+excepthook
+^^^^^^^^^^
+
+Before running your script, set environment variable `PYTHON_PEEP_EXCEPTIONS` to `1`. Now run the script and see what happens when an exception is raised.
 
 Development
 -----------
