@@ -1,0 +1,90 @@
+# Best reference regarding this config file is:
+# https://github.com/squidfunk/mkdocs-material/blob/master/mkdocs.yml
+
+site_name: "PeepShow"
+site_url: "https://gergelyk.github.io/peepshow"
+
+theme:
+  name: "material"
+  feature:
+    tabs: false # Appear in the title bar
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+# Appears in the title bar
+repo_name: peepshow
+repo_url: https://github.com/gergelyk/peepshow
+
+extra:
+  # Appears in the footer bar
+  social:
+    - type: gitlab
+      link: https://github.com/gergelyk/peepshow
+    - type: envelope-o
+      link: mailto:grzegorz.krason@gmail.com
+
+copyright: "Copyright &copy; 2020 Grzegorz Krasoń"
+
+markdown_extensions:
+  - abbr
+  - footnotes
+  - codehilite:
+      guess_lang: false
+      linenums: false
+      noclasses: false
+  - def_list
+  - toc:
+      permalink: true
+  - meta
+  - md_in_html
+  - mdx_include:
+      base_path: docs
+      recurs_remote: null
+  - sane_lists
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.escapeall
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+plugins:
+  - search
+#  - minify:
+#      minify_html: true # this doesn't work well with mermaid
+  - macros:
+      module_name: docs.macros
+  - mkdocstrings:
+      watch:
+        - peepshow
+  - markdownmermaid
+  - progress
+#  - htmlproofer # this only shows broken links in the build console
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.core.min.js
+
+extra_css:
+  - custom.css
+
+# Appears on the left side
+nav:
+  - Overview: index.md
+  - Peep: peep.md
+  - Show: show.md

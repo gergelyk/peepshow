@@ -1,6 +1,18 @@
-__pycache__/
-build/
-docs/build/
+# cpython
+__pycache__
+*.egg-info
+*.pyc
+
+# poetry
+.venv
 dist/
-venv/
-*.egg-info/
+
+# mypy
+.mypy_cache/
+
+# mkdocs
+site/
+
+# pytest-cov
+htmlcov/
+.coverage

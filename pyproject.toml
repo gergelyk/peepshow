@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "peepshow"
+version = "0.2.3"
+description = "Python data explorer."
+authors = ["Grzegorz Krasoń <grzegorz.krason@gmail.com>"]
+homepage = "https://gergelyk.github.io/peepshow"
+documentation = "https://gergelyk.github.io/peepshow"
+repository = "https://github.com/gergelyk/peepshow"
+license = "MIT"
+readme = "README.md"
+keywords = ["debug", "data", "explore", "programming"]
+include = ["peepshow/peepshow.1"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+astor = "^0.8.1"
+astunparse = "^1.6.3"
+colorama = "^0.4.4"
+getch = "^1.0"
+pprintpp = "^0.4.0"
+pygments = "^2.7.2"
+miscutils = "^1.4.0"
+
+[tool.poetry.dev-dependencies]
+mkdocs-material = "^4.6.0"
+pytest = "^5.3.5"
+bs4 = "^0.0.1"
+mkdocs-plugin-mermaid = "^0.1.1"
+mdx_include = "^1.3.3"
+mkdocs-htmlproofer-plugin = "^0.0.3"
+mkdocs-plugin-progress = "^1.1.4"
+mkdocs-macros-plugin = "^0.4.4"
+pytest-cov = "^2.8.1"
+pytest-html = "^2.1.1"
+lxml = "^4.5.0"
+yapf = "^0.29.0"
+docformatter = "^1.3.1"
+flake8 = "^3.7.9"
+isort = "^4.3.21"
+mkdocs = "^1.1"
+mkdocstrings = "^0.10.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
