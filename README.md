@@ -140,22 +140,6 @@ Before running your script, set environment variable `PYTHON_PEEP_EXCEPTIONS` to
 pip install --user poetry  # unless already installed
 poetry install
 
-# Auto-formatting
-poetry run docformatter -ri peepshow tests
-poetry run isort -rc peepshow tests
-poetry run yapf -r -i peepshow tests
-
-# Checking coding style
-poetry run flake8 peepshow tests
-
-# Checking composition and quality
-poetry run vulture peepshow tests
-poetry run mypy peepshow tests
-poetry run pylint peepshow tests
-poetry run bandit peepshow tests
-poetry run radon cc peepshow tests
-poetry run radon mi peepshow tests
-
 # Testing with coverage
 poetry run pytest --cov peepshow --cov tests
 
