@@ -1,4 +1,7 @@
 # peepshow
+![PyPI - Version](https://img.shields.io/pypi/v/peepshow)
+![PyPI - License](https://img.shields.io/pypi/l/peepshow)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/peepshow)
 
 Provides following utilities for debugging Python applications:
 
